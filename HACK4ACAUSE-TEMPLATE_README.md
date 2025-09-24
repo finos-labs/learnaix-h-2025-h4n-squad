@@ -16,19 +16,23 @@ Please complete this file and include it in the `main` branch of your repository
 Briefly describe:
 
 - What problem does your solution solve?
+The students and teachers don't have an AI Assistant inside the Moodle LMS to help their learning and development, they have to navigate to other websites in order to use an AI Chat. Our AI Assistant 'Hai' has information related to the courses in Moodle. It will be able to answer any query regarding the content inside Moodle. It can also be used to help Moodle Administrator to find solutions and guides to do advanced tasks inside Moodle.
+
 - How does it work?
+When a student or teacher logs into 
+
 - What technologies did you use?
 
 ## 👥 Team Information
 
 | Field            | Details                               |
 | ---------------- | ------------------------------------- |
-| Team Name        | [Your team name]                      |
-| Title            | [Give your project a name]            |
-| Theme            | [E.g., AI companion, Personalized]    |
-| Contact Email    | [Your primary contact email]          |
-| Participants     | [List full names of all participants] |
-| GitHub Usernames | [List usernames e.g., @alice, @bob]   |
+| Team Name        | H4N Squad                      |
+| Title            | Hai Assistant           |
+| Theme            | AI companion    |
+| Contact Email    | basilmon92@gmail.com          |
+| Participants     | Basil M Kuriakose, Tanushree Chauhan, Priti Pathak, Panindra S, Rajeswari Murukesan |
+| GitHub Usernames | @basilmon92, @tanushreechauhan-06, @pritipathak91-ai, @pani-init, @rajeswarimurukesan |
 
 ---
 
@@ -44,7 +48,7 @@ Provide a video walkthrough/demo of your project. You can upload it to YouTube, 
 
 If your solution is deployed, share the live link here.
 
-- 🌍 **Deployed URL**: [https://your-project-url.com]
+- 🌍 **Deployed URL**: [https://eqpzis-sfsehol-natwest-learnaix-hack4acause-xzrngi.snowflakecomputing.app]
 
 ---
 

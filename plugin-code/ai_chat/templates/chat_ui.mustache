@@ -1,0 +1,75 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+}}
+<div class="ai-chat-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button class="btn btn-primary btn-lg rounded-circle" onclick="showAIChat()">
+        <i class="fa fa-comment"></i>
+    </button>
+</div>
+
+<div id="ai-chat-modal" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 350px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index: 1000;">
+    <div style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+        <h5 style="margin: 0;">AI Chat</h5>
+        <button class="btn btn-link" onclick="hideAIChat()">×</button>
+    </div>
+    <div id="ai-chat-messages" style="height: 360px; overflow-y: auto; padding: 15px;"></div>
+    <div style="padding: 15px; border-top: 1px solid #eee;">
+        <textarea id="ai-chat-input" class="form-control mb-2" rows="2"></textarea>
+        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function showAIChat() {
+    document.getElementById('ai-chat-modal').style.display = 'block';
+    // Get initial welcome message
+    fetch('https://resedaceous-charlsie-unvenially.ngrok-free.dev/app/execute')
+        .then(response => response.text())
+        .then(data => {
+            appendMessage(data, 'assistant');
+        });
+}
+
+function hideAIChat() {
+    document.getElementById('ai-chat-modal').style.display = 'none';
+}
+
+function appendMessage(text, sender) {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'alert ' + (sender === 'user' ? 'alert-secondary' : 'alert-info');
+    messageDiv.style.marginBottom = '10px';
+    messageDiv.textContent = text;
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById('ai-chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    input.value = '';
+
+    fetch('https://resedaceous-charlsie-unvenially.ngrok-free.dev/getPromptResponse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({prompt: text})
+    })
+    .then(response => response.text())
+    .then(data => {
+        appendMessage(data, 'assistant');
+    });
+}
+
+// Allow Enter key to send message
+document.getElementById('ai-chat-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+</script>
