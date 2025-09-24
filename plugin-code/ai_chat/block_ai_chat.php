@@ -1,10 +1,19 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+/*
+ * Copyright 2025 FINOS
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -95,12 +104,79 @@ class block_ai_chat extends block_base {
         }
         $this->content = new stdClass;
 
-        // Add Font Awesome for the chat icon
-        $this->page->requires->css(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'));
+        // Add button that will trigger the chat
+        $this->content->text = '<button class="btn btn-primary" onclick="showAIChat()">Open Chat</button>';
         
-        /** @var block_ai_chat\output\renderer $aioutput */
-        $aioutput = $this->page->get_renderer('block_ai_chat');
-        $this->content->text = $aioutput->render_template('block_ai_chat/chat_ui', []);
+        // Add the chat UI HTML
+        $this->content->text .= '
+        <div id="ai-chat-modal" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 350px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index: 1000;">
+            <div style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                <h5 style="margin: 0;">AI Chat</h5>
+                <button class="btn btn-link" onclick="hideAIChat()">×</button>
+            </div>
+            <div id="ai-chat-messages" style="height: 360px; overflow-y: auto; padding: 15px;"></div>
+            <div style="padding: 15px; border-top: 1px solid #eee;">
+                <textarea id="ai-chat-input" class="form-control mb-2" rows="2"></textarea>
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </div>
+        </div>';
+
+        // Add the JavaScript
+        $js = "
+        window.showAIChat = function() {
+            document.getElementById('ai-chat-modal').style.display = 'block';
+            // Get initial welcome message
+            fetch('https://resedaceous-charlsie-unvenially.ngrok-free.dev/app/execute')
+                .then(response => response.text())
+                .then(data => {
+                    appendMessage(data, 'assistant');
+                });
+        }
+
+        window.hideAIChat = function() {
+            document.getElementById('ai-chat-modal').style.display = 'none';
+        }
+
+        window.appendMessage = function(text, sender) {
+            const messagesDiv = document.getElementById('ai-chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'alert ' + (sender === 'user' ? 'alert-secondary' : 'alert-info');
+            messageDiv.style.marginBottom = '10px';
+            messageDiv.textContent = text;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        window.sendMessage = function() {
+            const input = document.getElementById('ai-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            input.value = '';
+
+            fetch('https://resedaceous-charlsie-unvenially.ngrok-free.dev/getPromptResponse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({prompt: text})
+            })
+            .then(response => response.text())
+            .then(data => {
+                appendMessage(data, 'assistant');
+            });
+        }
+
+        // Allow Enter key to send message
+        document.getElementById('ai-chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });";
+
+        $this->page->requires->js_init_code($js);
 
         if ($this->page->user_is_editing()) {
             return $this->content;

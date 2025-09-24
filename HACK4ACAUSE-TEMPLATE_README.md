@@ -47,8 +47,9 @@ Provide a video walkthrough/demo of your project. You can upload it to YouTube, 
 ## 🌐 Hosted App / Solution URL
 
 If your solution is deployed, share the live link here.
+Our solution works on localhost. We have deployed it to snowflake also.
 
-- 🌍 **Deployed URL**: [https://eqpzis-sfsehol-natwest-learnaix-hack4acause-xzrngi.snowflakecomputing.app]
+- 🌍 **Deployed URL**: [https://etpzis-sfsehol-natwest-learnaix-hack4acause-xzrngi.snowflakecomputing.app]
 
 ---
 

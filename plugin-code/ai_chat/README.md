@@ -1,4 +1,44 @@
-# block_ai_chat - Chat Frontend for local_ai_manager
+# # 📬 Hai Assistant - Moodle AI Chat Plugin
+
+## 📄 Summary of Your Solution
+
+Our AI Assistant 'Hai' integrates directly into Moodle LMS to provide contextual help and support. Students and teachers no longer need to navigate to external websites for AI assistance.
+
+### Problem Solved
+Students and teachers lack an integrated AI Assistant within Moodle LMS for learning support and development. Hai provides direct access to course-related information and assistance within the Moodle environment.
+
+### How it Works
+- Integrates as a Moodle block plugin
+- Provides floating chat interface
+- Connects to secure AI backend
+- Contextually aware of Moodle courses
+- Helps with both course content and Moodle administration
+
+### Technologies Used
+- PHP 8.0+
+- JavaScript/jQuery
+- Moodle Plugin API
+- Bootstrap UI
+- REST API Integration
+
+## 👥 Team Information
+
+| Field            | Details                               |
+| ---------------- | ------------------------------------- |
+| Team Name        | H4N Squad                            |
+| Title           | Hai Assistant                        |
+| Theme           | AI companion                         |
+| Contact Email   | basilmon92@gmail.com                 |
+| Participants    | Basil M Kuriakose, Tanushree Chauhan, Priti Pathak, Panindra S, Rajeswari Murukesan |
+| GitHub Usernames | @basilmon92, @tanushreechauhan-06, @pritipathak91-ai, @pani-init, @rajeswarimurukesan |
+
+## License
+
+Copyright 2025 FINOS
+
+Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0) - Chat Frontend for local_ai_manager
 
 This plugin provides a Frontend to converse with defined Ai´s from local_ai_manager.
 Features are different viewmodes and a chat history.
