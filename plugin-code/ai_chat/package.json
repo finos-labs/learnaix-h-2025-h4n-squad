@@ -1,10 +1,1 @@
-{
-    "name": "moodle-block_ai_chat",
-    "scripts": {
-        "compile-sass": "sass --no-source-map styles.scss styles.css"
-    },
-    "devDependencies": {
-        "grunt": "^1.6.1",
-        "sass": "^1.77.2"
-    }
-}
+{"name":"moodle-block_ai_chat","version":"1.0.0","description":"AI Chat block for Moodle","license":"Apache-2.0"}
